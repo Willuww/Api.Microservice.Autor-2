@@ -22,6 +22,20 @@ builder.Services.AddDbContext<ContextoAutor>(options =>
 builder.Services.AddMediatR(typeof(Nuevo.Manejador).Assembly);
 builder.Services.AddAutoMapper(typeof(Consulta.Manejador));
 
+
+
+//cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTodo",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                    .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("PermitirTodo");
 
 app.UseAuthorization();
 

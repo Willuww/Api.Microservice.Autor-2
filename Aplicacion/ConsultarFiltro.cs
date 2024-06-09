@@ -10,7 +10,7 @@ namespace Api.Microservice.Autor.Aplicacion
     {
         public class AutorUnico : IRequest<AutorDto>
         {
-            public string AutoGuid { get; set; }
+            public string AutorGuid { get; set; }
         }
 
         public class Manejador : IRequestHandler<AutorUnico, AutorDto>
@@ -26,7 +26,7 @@ namespace Api.Microservice.Autor.Aplicacion
             public async Task<AutorDto> Handle(AutorUnico request, CancellationToken cancellationToken)
             {
                 var autor = await _context.AutorLibros
-                .Where(p => p.AutorLibroGuid == request.AutoGuid).FirstOrDefaultAsync();
+                .Where(p => p.AutorLibroGuid == request.AutorGuid).FirstOrDefaultAsync();
                 if (autor == null)
                 {
                     throw new Exception("No se encontroal autor");
